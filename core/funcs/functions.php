@@ -10,10 +10,7 @@ class signup extends randomUserId
 
         $random = new randomUserId;
         global $con; 
-        mysql_real_escape_string($con, $email);
-        mysql_real_escape_string($con, $password);
-        mysql_real_escape_string($con, $passwordConfirm);
-        
+
         $regex = "/^[a-zA-Z\d\._]+@[a-zA-Z\d\._]+\.[a-zA-Z\d\.]{2,}+$/";
         $user_email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $user_email = preg_match($regex, $email);
