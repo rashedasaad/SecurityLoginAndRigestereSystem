@@ -20,9 +20,9 @@ class signup extends randomUserId
         $pass = strip_tags($user_pass);
 
 
-
+       
         if (!empty($ema) && !empty($pass)) {
-
+        
             $query = "SELECT * FROM $tabel WHERE email='$email'";
             $result = mysqli_query($con, $query);
             $row = mysqli_num_rows($result);
