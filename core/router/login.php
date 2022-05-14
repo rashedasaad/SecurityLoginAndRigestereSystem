@@ -14,7 +14,7 @@ $csrf->csrf();
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-  $result = $login->login("user", $_POST["email"], $_POST["password"], $_POST["csrf_token"], "http://localhost/hstore/core/test/main.php");
+  $result = $login->login("user", $_POST["email"], $_POST["password"], $_POST["csrf_token"], "http://localhost/SecurityLoginAndRigestereSystem/core/router/index.php");
 }
 
 if (!isset($_SESSION['user_id'])) :

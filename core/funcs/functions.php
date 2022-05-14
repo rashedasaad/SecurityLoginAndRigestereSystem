@@ -30,8 +30,11 @@ class signup extends randomUserId
                 if ($password === $passwordConfirm) {
 
                     $user_id =  $random->random_num(20);
-                    $query = "INSERT INTO user(user_id,email, password) VALUES('$user_id','$email','$pass')";
-                    mysqli_query($con, $query);
+                    $query =  "INSERT INTO user(user_id,email, password) VALUES(?,?,?)";
+                    $userParam = array($user_id, $email,$pass);
+                    $st = $con->prepare($query);
+                    $st->execute($userParam);
+
                     header("Location: http://localhost/SecurityLoginAndRigestereSystem/core/router/login.php");
                     die;
                 } else {
@@ -53,9 +56,9 @@ class signup extends randomUserId
 
 if (!empty($_POST['token'])) {
     if (hash_equals($_SESSION['token'], $_POST['token'])) {
-        // Proceed to process the form data
+        
     } else {
-        // Log this as a warning and keep an eye on these attempts
+  
     }
 }
 
@@ -77,8 +80,6 @@ class loginpage
 
 
                     $query = "SELECT * FROM  $tabel WHERE email = '$el' LIMIT 1 ";
-
-
                     $result = mysqli_query($con, $query);
 
 
