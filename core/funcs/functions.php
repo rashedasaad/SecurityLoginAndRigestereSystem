@@ -9,9 +9,10 @@ class signup extends randomUserId
     {
 
         $random = new randomUserId;
-        global $con; 
+        global $con;
 
         $regex = "/^[a-zA-Z\d\._]+@[a-zA-Z\d\._]+\.[a-zA-Z\d\.]{2,}+$/";
+
         $user_email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $user_email = preg_match($regex, $email);
         $user_pass = password_hash($password, PASSWORD_DEFAULT);
@@ -20,9 +21,9 @@ class signup extends randomUserId
         $pass = strip_tags($user_pass);
 
 
-       
+
         if (!empty($ema) && !empty($pass)) {
-        
+
             $query = "SELECT * FROM $tabel WHERE email='$email'";
             $result = mysqli_query($con, $query);
             $row = mysqli_num_rows($result);
@@ -31,23 +32,20 @@ class signup extends randomUserId
 
                     $user_id =  $random->random_num(20);
                     $query =  "INSERT INTO user(user_id,email, password) VALUES(?,?,?)";
-                    $userParam = array($user_id, $email,$pass);
+                    $userParam = array($user_id, $email, $pass);
                     $st = $con->prepare($query);
                     $st->execute($userParam);
 
                     header("Location: http://localhost/SecurityLoginAndRigestereSystem/core/router/login.php");
                     die;
-                } else {
-
-                    echo $MsgIfThePassIsNotTheSame;
                 }
-            } else {
 
-                echo $MsgIfThereIsAccount;
+                return $MsgIfThePassIsNotTheSame;
             }
-        } else {
-            echo "please type in";
+
+            return $MsgIfThereIsAccount;
         }
+        return "please type in";
     }
 }
 
@@ -56,9 +54,9 @@ class signup extends randomUserId
 
 if (!empty($_POST['token'])) {
     if (hash_equals($_SESSION['token'], $_POST['token'])) {
-        
-    } else {
-  
+    }
+    else{
+        exit();
     }
 }
 
@@ -99,14 +97,12 @@ class loginpage
                                 exit();
                             }
                             return 1;
-                        } else {
-                            echo "Chech if the password is correct or the email";
                         }
+                        return "Chech if the password is correct or the email";
                     }
-                } else {
-
-                    echo "write in the input";
                 }
+
+                return "write in the input";
             }
         }
     }
@@ -132,7 +128,7 @@ class check
 {
 
 
-    public function check_login($Table,$IfNotLoginLink)
+    public function check_login($Table, $IfNotLoginLink)
     {
 
         global $con;

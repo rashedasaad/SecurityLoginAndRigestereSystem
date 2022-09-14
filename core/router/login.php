@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 require "../funcs/functions.php";
 
-
-
-
-
 $login = new loginpage();
 $csrf = new Security();
 $csrf->csrf();
